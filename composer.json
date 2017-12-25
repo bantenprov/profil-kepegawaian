@@ -1,0 +1,23 @@
+{
+  "description": "Profil Pegawai Pemerintah Provinsi Banten",
+  "name": "bantenprov/profil-kepegawaian",
+  "type": "library",
+  "homepage": "https://github.com/bantenprov/profil-kepegawaian",
+  "authors": [
+    {
+      "name": "bantenprov",
+      "email": "developer.bantenprov@gmail.com",
+      "role": "developer"
+    }
+  ],
+  "license": "MIT",
+  "support": {
+    "source": "https://github.com/bantenprov/profil-kepegawaian,",
+    "issues": "https://github.com/bantenprov/profil-kepegawaian/issues",
+    "wiki": "https://github.com/bantenprov/profil-kepegawaian/wiki"
+  },
+  "require": {
+    "php": ">=5.4.0",
+    "laravel/laravel": "5.4.*"
+  }
+}
