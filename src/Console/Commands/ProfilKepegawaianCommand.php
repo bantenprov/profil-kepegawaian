@@ -1,7 +1,9 @@
 <?php namespace Bantenprov\ProfilKepegawaian\Console\Commands;
 
 use Illuminate\Console\Command;
-
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
+use File;
 /**
  * The ProfilKepegawaianCommand class.
  *
@@ -47,7 +49,7 @@ class ProfilKepegawaianCommand extends Command
 
     protected $stubsMiddleware = [                  
         'middlewares' => [
-            'PegawaiMiddleware.stub'
+            'PegawaiApiMiddleware.stub'
         ]                
     ];
 
@@ -76,9 +78,9 @@ class ProfilKepegawaianCommand extends Command
     protected function viewCreate()
     {        
         
-        foreach($this->stubsRole['pegawai'] as $stub)
+        foreach($this->stubsPegawai['pegawai'] as $stub)
         {
-            File::put(base_path('resources/views/pegawai/').str_replace('stub','php',$stub),File::get(__DIR__.'/../stubs/views/pegawai/'.$stub));            
+            File::put(base_path('resources/views/pegawai/').str_replace('stub','php',$stub),File::get(__DIR__.'/../../stub/views/pegawai/'.$stub));            
         }
         
     }
@@ -90,7 +92,7 @@ class ProfilKepegawaianCommand extends Command
         
         foreach($this->stubsController['controllers'] as $stub)
         {
-            File::put(base_path('app/Http/Controllers/').str_replace('stub','php',$stub),File::get(__DIR__.'/../stubs/Controllers/'.$stub));            
+            File::put(base_path('app/Http/Controllers/').str_replace('stub','php',$stub),File::get(__DIR__.'/../../stub/controllers/'.$stub));            
         }
         
     }
@@ -99,7 +101,7 @@ class ProfilKepegawaianCommand extends Command
     {
         foreach($this->stubsModel['models'] as $stub)
         {
-            File::put(base_path('app/Http/').str_replace('stub','php',$stub),File::get(__DIR__.'/../stubs/Models/'.$stub));            
+            File::put(base_path('app/').str_replace('stub','php',$stub),File::get(__DIR__.'/../../stub/models/'.$stub));            
         }
     }
 
@@ -107,7 +109,7 @@ class ProfilKepegawaianCommand extends Command
     {
         foreach($this->stubsMiddleware['middlewares'] as $stub)
         {
-            File::put(base_path('app/Http/Middleware').str_replace('stub','php',$stub),File::get(__DIR__.'/../stubs/Middleware/'.$stub));            
+            File::put(base_path('app/Http/Middleware/').str_replace('stub','php',$stub),File::get(__DIR__.'/../../stub/middleware/'.$stub));            
         }
     }
 
@@ -116,7 +118,7 @@ class ProfilKepegawaianCommand extends Command
         
         foreach($this->stubsApiController['controllersapi'] as $stub)
         {
-            File::put(base_path('app/Http/Controllers/Api').str_replace('stub','php',$stub),File::get(__DIR__.'/../stubs/Controllers/api/'.$stub));            
+            File::put(base_path('app/Http/Controllers/Api/').str_replace('stub','php',$stub),File::get(__DIR__.'/../../stub/controllers/api/'.$stub));            
         }
         
     }
@@ -131,8 +133,8 @@ class ProfilKepegawaianCommand extends Command
     {   
         File::makeDirectory(base_path('app/Http/Controllers/Api'));
         File::makeDirectory(base_path('resources/views/pegawai'));
-        File::append(base_path('routes/web.php'),"\n".File::get(__DIR__.'/../stubs/web.stub'));        
-        File::append(base_path('routes/api.php'),"\n".File::get(__DIR__.'/../stubs/api.stub'));
+        File::append(base_path('routes/web.php'),"\n".File::get(__DIR__.'/../../stub/web.stub'));        
+        File::append(base_path('routes/api.php'),"\n".File::get(__DIR__.'/../../stub/api.stub'));
         
         $this->viewCreate();
         $this->controllerCreate();
@@ -142,3 +144,4 @@ class ProfilKepegawaianCommand extends Command
         $this->info('Installation Success');
     }
 }
+
