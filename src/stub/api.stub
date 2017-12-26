@@ -1,0 +1,3 @@
+Route::group(['prefix' => 'v1','middleware' => 'pegawai'], function(){
+	Route::resource('/pegawai','Api\PegawaiApiController');
+});

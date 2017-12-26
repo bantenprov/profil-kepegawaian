@@ -1,0 +1,71 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row">    	
+        <div class="col-md-12">        	
+        	<a href="{{ route('home') }}" class="btn btn-xs btn-primary">Back</a>
+        	<br>
+        	<br>Search :
+        	{!! Form::open(['route' => 'kepegawaian.index','method' => 'get']) !!}
+						
+				<div class="input-group">
+					<input type="text" name="search" value="{{ Request::get('search') }}" class="form-control input-sm" placeholder="Search for...">
+					<span class="input-group-btn">
+						<button class="btn btn-default btn-sm" type="submit"><i class="fa fa-search"></i></button>
+					</span>
+				</div><!-- /input-group -->
+			
+			{!! Form::close() !!}
+			<br>
+            <div class="panel panel-default">
+                <div class="panel-heading">                	
+                	Kepegawaian                	
+					<span class="pull-right">						
+						<a href="{{ route('kepegawaian.create') }}" class="bnt btn-xs btn-success"><i class="fa fa-plus"></i> Add</a>
+					</span>			
+                </div>
+
+                <div class="panel-body">
+                	@if ($errors->any())
+					    					        
+			            @foreach ($errors->all() as $error)
+			                <div class="alert alert-danger">{{ $error }}</div>
+			            @endforeach					        
+					    
+					@endif
+					@if(session()->has('message'))
+					    <div class="alert alert-success">
+					    	{{ session()->get('message') }}
+					    </div>
+					@endif
+					<div class="table-responsive">
+	                    <table class="table table-striped">
+							<tr>
+								<th>NIP</th>
+								<th>Nama Lengkap</th>
+								<th>Dinas</th>
+								<th>Jabatan</th>
+								<th width="100px">Action</th>
+							</tr>
+							@foreach($pegawais as $pegawai)
+							<tr>
+								<td>{{ $pegawai->nip }}</td>
+								<td>{{ $pegawai->full_name }}</td>
+								<td>{{ $pegawai->dinas }}</td>
+								<td>{{ $pegawai->jabatan }}</td>
+								<td>
+									<a href="{{ route('kepegawaian.show',$pegawai->id) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+									<a href="{{ route('kepegawaian.edit',$pegawai->id) }}" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+									<a href="{{ route('kepegawaian.show',$pegawai->id) }}" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+								</td>
+							</tr>
+							@endforeach
+						</table>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
