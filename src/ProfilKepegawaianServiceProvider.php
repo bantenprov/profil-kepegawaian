@@ -152,6 +152,6 @@ class ProfilKepegawaianServiceProvider extends ServiceProvider
 
         $this->publishes([
             $packageMigrationsPath => database_path('migrations')
-        ], 'migrations');
+        ], 'migrations-profil-kepegawaian');
     }
 }
