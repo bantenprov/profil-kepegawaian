@@ -1,0 +1,174 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\User;
+use App\Pegawai;
+use Validator;
+
+class PegawaiApiController extends Controller
+{
+
+    protected $userModel;
+    protected $pegawaiModel;
+
+    public function __construct()
+    {
+        $this->userModel = new User;
+        $this->pegawaiModel = new Pegawai;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {        
+        $pegawais = $this->pegawaiModel->all();
+        
+        return response()->json([
+            'data_pegawai' => $pegawais
+        ]);        
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'user_id'       => 'required',
+            'nip'           => 'required',
+            'dinas'         => 'required',
+            'full_name'     => 'required',
+            'jabatan'       => 'required',
+            'join_date'     => 'date|required',
+            'tgl_pensiun'   => 'date|required'            
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'errors' => $validator
+            ]);            
+        }
+
+        try {
+            $this->pegawaiModel->create($request->all());
+            return response()->json([
+                'message' => 'Add data success'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Critical Error'
+            ]);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        try {
+            $pegawai = $this->pegawaiModel->findOrFail($id); 
+            $user = $pegawai->getUser;
+            return response()->json([
+                'data_pegawai' => [
+                    $pegawai
+                ]
+            ]);                   
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'No result'
+            ]);
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(),[
+            'user_id'       => 'required',
+            'nip'           => 'required',
+            'dinas'         => 'required',
+            'full_name'     => 'required',
+            'jabatan'       => 'required',
+            'join_date'     => 'date|required',
+            'tgl_pensiun'   => 'date|required'            
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'errors' => $validator
+            ]);
+        }
+
+        try {
+            $this->pegawaiModel->findOrFail($id)->update($request->all());
+            return response()->json([
+                'message' => 'Update data success'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Critical Error'
+            ]);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try {
+            $this->pegawaiModel->findOrFail($id)->delete();
+            
+            return response()->json([
+                'message' => 'Delete data success'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Critical Error'
+            ]);
+        }
+    }
+}

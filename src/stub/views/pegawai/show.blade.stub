@@ -1,0 +1,82 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+	<div class="row">		
+		<div class="col-md-12">
+			<a href="{{ route('kepegawaian.index') }}" class="btn btn-xs btn-primary">Back</a>
+			<br>
+			<br>
+			<div class="panel panel-default">
+				<div class="panel-heading">					
+					Detail Pegawai
+					<span class="pull-right">
+						<a href="{{ route('kepegawaian.edit',$pegawai->id) }}" class="bnt btn-xs btn-success"><i class="fa fa-pencil"></i> Edit</a>
+					</span>
+					<div>
+					@if ($errors->any())
+					    					        
+			            @foreach ($errors->all() as $error)
+			                <div class="alert alert-danger">{{ $error }}</div>
+			            @endforeach					        
+					    
+					@endif
+					@if(session()->has('message'))
+					    <div class="alert alert-success">					        
+					    	{{ session()->get('message') }}
+					    </div>
+					@endif
+					</div> 
+				</div>
+
+				<div class="panel-body">
+					<table>
+						<tr>
+							<td>NIK</td>
+							<td width="20px">:</td>
+							<td>{{ $pegawai->getUser->nik }}</td>
+						</tr>
+						<tr>
+							<td>NIP</td>
+							<td width="20px">:</td>
+							<td>{{ $pegawai->nip }}</td>
+						</tr>
+						<tr>
+							<td>Full Name</td>
+							<td width="20px">:</td>
+							<td>{{ $pegawai->full_name }}</td>
+						</tr>
+						<tr>
+							<td>Jabatan</td>
+							<td width="20px">:</td>
+							<td>{{ $pegawai->jabatan }}</td>
+						</tr>
+						<tr>
+							<td>Dinas</td>
+							<td width="20px">:</td>
+							<td>{{ $pegawai->dinas }}</td>
+						</tr>
+						<tr>
+							<td>Tanggal Masuk</td>
+							<td width="20px">:</td>
+							<td>{{ $pegawai->join_date }}</td>
+						</tr>
+						<tr>
+							<td>Tanggal Pensiun</td>
+							<td width="20px">:</td>
+							<td>{{ $pegawai->tgl_pensiun }}</td>
+						</tr>
+						<tr>
+							<td valign="top">Description</td>
+							<td width="20px" valign="top">:</td>
+							<td>
+								{{ $pegawai->description }}
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endsection
