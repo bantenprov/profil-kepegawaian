@@ -20,6 +20,6 @@ class Pegawai extends Model
 
 	public function getUser()
 	{
-		return $this->hasOne('App\User','id');	
+		return $this->hasOne('App\User','id','user_id');	
 	}
 }
