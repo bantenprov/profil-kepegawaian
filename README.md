@@ -4,7 +4,7 @@ Profil Pegawai Pemerintah Provinsi Banten
 ## Install
 
 ```bash
-$ composer require bantenprov/profil-kependudukan:dev-master
+$ composer require bantenprov/profil-kepegawaian:dev-master
 ```
 
 ## Edit `config/app.php`
