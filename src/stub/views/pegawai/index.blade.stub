@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">    	
         <div class="col-md-12">        	
-        	<a href="{{ route('home') }}" class="btn btn-xs btn-primary">Back</a>
+        	<a href="{{ route('home') }}" class="btn btn-sm btn-primary">Back</a>
         	<br>
         	<br>Search :
         	{!! Form::open(['route' => 'kepegawaian.index','method' => 'get']) !!}
@@ -22,7 +22,7 @@
                 <div class="panel-heading">                	
                 	Kepegawaian                	
 					<span class="pull-right">						
-						<a href="{{ route('kepegawaian.create') }}" class="bnt btn-xs btn-success"><i class="fa fa-plus"></i> Add</a>
+						<a href="{{ route('kepegawaian.create') }}" class="bnt btn-sm btn-success"><i class="fa fa-plus"></i> Add</a>
 					</span>			
                 </div>
 
@@ -46,7 +46,7 @@
 								<th>Nama Lengkap</th>
 								<th>Dinas</th>
 								<th>Jabatan</th>
-								<th width="100px">Action</th>
+								<th width="110px">Action</th>
 							</tr>
 							@foreach($pegawais as $pegawai)
 							<tr>
@@ -55,11 +55,11 @@
 								<td>{{ $pegawai->dinas }}</td>
 								<td>{{ $pegawai->jabatan }}</td>
 								<td>
-									<a href="{{ route('kepegawaian.show',$pegawai->id) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
-									<a href="{{ route('kepegawaian.edit',$pegawai->id) }}" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+									<a href="{{ route('kepegawaian.show',$pegawai->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+									<a href="{{ route('kepegawaian.edit',$pegawai->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
 									{{ Form::open(['route' => ['kepegawaian.destroy',$pegawai->id], 'class' => 'pull-right']) }}
 					                    {{ Form::hidden('_method', 'DELETE') }}
-					                    <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button>
+					                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
 					                {{ Form::close() }}
 								</td>
 							</tr>
