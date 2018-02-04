@@ -121,15 +121,32 @@ class PegawaiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
-            'user_id'       => 'required',
-            'nip'           => 'required',
-            'dinas'         => 'required',
-            'full_name'     => 'required',
-            'jabatan'       => 'required',
-            'join_date'     => 'date|required',
-            'tgl_pensiun'   => 'date|required'            
-        ]);
+
+        if($request->old_user_id ==  $request->user_id)
+        {
+            $validator = Validator::make($request->all(),[
+                'user_id'       => 'required',
+                'nip'           => 'required',
+                'dinas'         => 'required',
+                'full_name'     => 'required',
+                'jabatan'       => 'required',
+                'join_date'     => 'date|required',
+                'tgl_pensiun'   => 'date|required'            
+            ]);
+        }
+        else
+        {
+            $validator = Validator::make($request->all(),[
+                'user_id'       => 'required|unique:pegawais,user_id',
+                'nip'           => 'required',
+                'dinas'         => 'required',
+                'full_name'     => 'required',
+                'jabatan'       => 'required',
+                'join_date'     => 'date|required',
+                'tgl_pensiun'   => 'date|required'            
+            ]);
+        }
+        
 
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput();
